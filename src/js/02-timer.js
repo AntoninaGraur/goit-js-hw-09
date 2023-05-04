@@ -34,13 +34,14 @@ flatpickr(datetimePicker, options);
 
 startButton.addEventListener("click", () => {
   const countdownDate = new Date(datetimePicker.value).getTime();
+  datetimePicker.disabled = true;
   const countdownInterval = setInterval(() => {
     const currentTime = new Date().getTime();
     const timeDifference = countdownDate - currentTime;
     if (timeDifference < 0) {
       clearInterval(countdownInterval);
       Notiflix.Report.failure('Time is up', 'Please choose a new date', 'OK');
-      startButton.disabled = true;
+      datetimePicker.disabled = false;
     } else {
       const time = convertMs(timeDifference);
       daysField.textContent = formatTime(time.days);
